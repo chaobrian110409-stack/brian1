@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brian Chao | 學習歷程與專案作品集</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#09090b',
+              surface: '#121316',
+              card: 'rgba(255, 255, 255, 0.03)',
+              border: 'rgba(255, 255, 255, 0.08)',
+              accent: '#3b82f6',
+              accentGlow: 'rgba(59, 130, 246, 0.15)',
+              textMuted: '#94a3b8'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'Noto Sans TC', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+
+    body {
+      background-color: #09090b;
+      color: #f8fafc;
+      font-family: 'Inter', 'Noto Sans TC', sans-serif;
+      overflow-x: hidden;
+      selection-background-color: #3b82f6;
+    }
+
+    /* Ambient Background Glow */
+    .radial-gradient-hero {
+      background: radial-gradient(circle at 50% -20%, rgba(59, 130, 246, 0.18), transparent 70%),
+                  radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.12), transparent 50%);
+    }
+
+    /* Linear style subtle border and card backdrop */
+    .linear-card {
+      background: rgba(18, 19, 22, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .linear-card:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), 0 0 20px 0 rgba(59, 130, 246, 0.1);
+    }
+
+    /* Custom subtle scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #09090b;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+  </style>
+</head>
+<body class="min-h-screen relative selection:bg-blue-500/30 selection:text-blue-200">
+
+  <!-- Ambient Top Glow -->
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[600px] radial-gradient-hero pointer-events-none -z-10"></div>
+
+  <!-- Header / Navigation -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#09090b]/80 border-b border-white/[0.06]">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="#hero" class="flex items-center gap-3 group">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center font-bold text-xs tracking-wider text-white shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform">
+          BC
+        </div>
+        <span class="font-semibold text-sm tracking-tight text-zinc-100 group-hover:text-white transition-colors">Brian Chao</span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-8 text-xs font-medium tracking-wide text-zinc-400">
+        <a href="#overview" class="hover:text-zinc-100 transition-colors">Overview</a>
+        <a href="#projects" class="hover:text-zinc-100 transition-colors">Projects</a>
+        <a href="#skills" class="hover:text-zinc-100 transition-colors">Stack & Modules</a>
+        <a href="#timeline" class="hover:text-zinc-100 transition-colors">Timeline</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <button id="contactModalBtn" class="px-3.5 py-1.5 rounded-full text-xs font-medium tracking-tight bg-white/[0.08] hover:bg-white/[0.14] text-zinc-200 hover:text-white border border-white/[0.08] hover:border-white/20 transition-all flex items-center gap-1.5">
+          <i data-lucide="mail" class="w-3.5 h-3.5 text-zinc-400"></i>
+          <span>聯絡諮詢</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-6 pt-16 pb-24">
+
+    <!-- Hero Section -->
+    <section id="hero" class="pt-8 pb-16 md:pt-16 md:pb-24">
+      <div class="flex items-center gap-2 mb-6 inline-flex px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] text-xs text-zinc-400">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>High School STEM & Robotics Explorer</span>
+        <span class="text-zinc-600">|</span>
+        <span class="text-zinc-400">臺中一中 (TCFSH)</span>
+      </div>
+
+      <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-white mb-6 leading-[1.15]">
+        探究物理科學、編程邏輯與<br>
+        <span class="bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent">
+          跨領域工程實踐的數位歷程
+        </span>
+      </h1>
+
+      <p class="text-base md:text-lg text-zinc-400 max-w-2xl font-normal leading-relaxed mb-10">
+        專注於自然科學深化研習、機器人控制邏輯 (Makeblock / Hardware control)、演算法與全端生產力工具開發。透過清晰的邏輯架構與持續實驗，建構現代數位與工程實踐。
+      </p>
+
+      <div class="flex flex-wrap items-center gap-4">
+        <a href="#projects" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-medium text-sm tracking-tight transition-all shadow-lg shadow-blue-600/25 flex items-center gap-2">
+          <span>瀏覽專案歷程</span>
+          <i data-lucide="arrow-down-right" class="w-4 h-4"></i>
+        </a>
+        <a href="#skills" class="px-5 py-2.5 rounded-xl bg-zinc-900/80 hover:bg-zinc-800 text-zinc-300 hover:text-white font-medium text-sm tracking-tight border border-white/[0.08] hover:border-white/[0.16] transition-all">
+          專業技能矩陣
+        </a>
+      </div>
+    </section>
+
+    <!-- Bento Grid Showcase: Overview & Highlights -->
+    <section id="overview" class="mb-24">
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <h2 class="text-xs uppercase tracking-widest text-blue-400 font-semibold mb-1">Architecture & Highlights</h2>
+          <p class="text-2xl font-bold text-white tracking-tight">核心探索領域與學習指標</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- Bento Item 1: Robotics (2 Cols on Desktop) -->
+        <div class="md:col-span-2 linear-card rounded-2xl p-7 relative overflow-hidden flex flex-col justify-between group">
+          <div class="absolute -top-12 -right-12 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-blue-500/20 transition-all"></div>
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="px-2.5 py-1 rounded-md bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-mono font-medium">STEM & Robotics</span>
+              <span class="text-xs text-zinc-500 font-mono">Hardware logic</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2 tracking-tight">Makeblock 機器人控制與感測器閉環調校</h3>
+            <p class="text-sm text-zinc-400 leading-relaxed mb-6">
+              結合硬體微控制器、紅外線/超音波避障模組與 PID 控制演算法，設計即時路徑循跡與自主動態導航邏輯，探索物理反饋與即時運算邊界。
+            </p>
+          </div>
+          <div class="grid grid-cols-3 gap-3 pt-4 border-t border-white/[0.06]">
+            <div>
+              <div class="text-xs text-zinc-500 mb-1">控制週期</div>
+              <div class="text-base font-semibold text-zinc-200 font-mono">10 ms</div>
+            </div>
+            <div>
+              <div class="text-xs text-zinc-500 mb-1">感測融合</div>
+              <div class="text-base font-semibold text-zinc-200 font-mono">IR + Ultrasonic</div>
+            </div>
+            <div>
+              <div class="text-xs text-zinc-500 mb-1">執行環境</div>
+              <div class="text-base font-semibold text-zinc-200 font-mono">C++ / Arduino</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bento Item 2: English Translation & Writing -->
+        <div class="linear-card rounded-2xl p-7 flex flex-col justify-between relative overflow-hidden group">
+          <div class="absolute -bottom-8 -right-8 w-36 h-36 bg-purple-500/10 rounded-full blur-2xl pointer-events-none group-hover:bg-purple-500/20 transition-all"></div>
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="px-2.5 py-1 rounded-md bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-mono font-medium">Language</span>
+              <span class="text-xs text-zinc-500 font-mono">GEPT Intermediate</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 tracking-tight">英檢中級寫作與學術翻譯</h3>
+            <p class="text-xs text-zinc-400 leading-relaxed">
+              聚焦清晰段落架構、高階論證連貫性與精準字彙替換，深化日常生活口說與科技學術文本雙向轉譯。
+            </p>
+          </div>
+          <div class="pt-6 border-t border-white/[0.06] flex items-center justify-between">
+            <span class="text-xs text-zinc-400">寫作架構評估</span>
+            <span class="text-xs font-mono text-emerald-400 flex items-center gap-1">
+              <i data-lucide="check-circle" class="w-3.5 h-3.5"></i> 結構完整
+            </span>
+          </div>
+        </div>
+
+        <!-- Bento Item 3: Math & Physics Foundation -->
+        <div class="linear-card rounded-2xl p-7 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono font-medium">Core Science</span>
+              <span class="text-xs text-zinc-500 font-mono">Curriculum</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 tracking-tight">數理模型化與實驗分析</h3>
+            <p class="text-xs text-zinc-400 leading-relaxed">
+              高中數學解析幾何、微積分概念預研，結合基礎物理力學與熱力學實驗驗證，鍛鍊嚴密數理推導。
+            </p>
+          </div>
+          <div class="pt-6 border-t border-white/[0.06] flex items-center justify-between text-xs text-zinc-400">
+            <span>分析工具</span>
+            <span class="font-mono text-zinc-200">Python / GeoGebra</span>
+          </div>
+        </div>
+
+        <!-- Bento Item 4: Cloud & Productivity (2 Cols on Desktop) -->
+        <div class="md:col-span-2 linear-card rounded-2xl p-7 flex flex-col justify-between relative overflow-hidden group">
+          <div class="absolute -top-10 left-1/3 w-40 h-40 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-indigo-500/20 transition-all"></div>
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="px-2.5 py-1 rounded-md bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-mono font-medium">Digital Workflow</span>
+              <span class="text-xs text-zinc-500 font-mono">Productivity Engine</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2 tracking-tight">個人化數位工作流與學業時間排程系統</h3>
+            <p class="text-sm text-zinc-400 leading-relaxed mb-6">
+              以 Google Workspace、Markdown 與自定義自動化腳本為骨幹，實現每週課表（英、數、物、化）、作業死線追蹤與學習進度可視化儀表板。
+            </p>
+          </div>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3 pt-4 border-t border-white/[0.06]">
+            <div>
+              <div class="text-xs text-zinc-500 mb-0.5">每週工時規劃</div>
+              <div class="text-sm font-semibold text-zinc-200 font-mono">35+ Hours</div>
+            </div>
+            <div>
+              <div class="text-xs text-zinc-500 mb-0.5">知識卡片積累</div>
+              <div class="text-sm font-semibold text-zinc-200 font-mono">420+ Notes</div>
+            </div>
+            <div>
+              <div class="text-xs text-zinc-500 mb-0.5">死線準時率</div>
+              <div class="text-sm font-semibold text-emerald-400 font-mono">99.4%</div>
+            </div>
+            <div>
+              <div class="text-xs text-zinc-500 mb-0.5">自動化同步</div>
+              <div class="text-sm font-semibold text-zinc-200 font-mono">Active (API)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Projects Filter Section -->
+    <section id="projects" class="mb-24">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+        <div>
+          <h2 class="text-xs uppercase tracking-widest text-blue-400 font-semibold mb-1">Case Studies</h2>
+          <p class="text-2xl font-bold text-white tracking-tight">精選專案與實作成果</p>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="flex items-center gap-1.5 p-1 bg-white/[0.04] border border-white/[0.08] rounded-xl text-xs font-medium">
+          <button data-filter="all" class="filter-btn active px-3 py-1.5 rounded-lg bg-blue-600 text-white transition-all">全部專案</button>
+          <button data-filter="robotics" class="filter-btn px-3 py-1.5 rounded-lg text-zinc-400 hover:text-white transition-all">機器人與硬體</button>
+          <button data-filter="science" class="filter-btn px-3 py-1.5 rounded-lg text-zinc-400 hover:text-white transition-all">自然科學與數學</button>
+          <button data-filter="english" class="filter-btn px-3 py-1.5 rounded-lg text-zinc-400 hover:text-white transition-all">英語論文與翻譯</button>
+        </div>
+      </div>
+
+      <!-- Project Cards Grid -->
+      <div id="projectGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <!-- Card 1 -->
+        <div class="project-item linear-card rounded-2xl p-6 flex flex-col justify-between" data-category="robotics">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-mono text-blue-400 font-medium">Project 01 / Robotics</span>
+              <span class="text-xs text-zinc-500 font-mono">2026.04</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">多感測自主避障與巡線機器人</h3>
+            <p class="text-xs text-zinc-400 leading-relaxed mb-4">
+              使用 Makeblock 主控核心，搭配紅外線灰度感測器與超音波模組。透過狀態機模型解構巡線與避障模式切換，大幅減少震盪超調。
+            </p>
+            <div class="flex flex-wrap gap-1.5 mb-6">
+              <span class="px-2 py-0.5 rounded bg-white/[0.05] text-[11px] font-mono text-zinc-300">Arduino C++</span>
+              <span class="px-2 py-0.5 rounded bg-white/[0.05] text-[11px] font-mono text-zinc-300">State Machine</span>
+              <span class="px-2 py-0.5 rounded bg-white/[0.05] text-[11px] font-mono text-zinc-300">Ultrasonic</span>
+            </div>
+          </div>
+          <button class="project-detail-btn w-full py-2 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-xs font-medium text-zinc-200 border border-white/[0.08] flex items-center justify-center gap-1.5 transition-colors" data-id="p1">
+            <span>檢視技術摘要與架構</span>
+            <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-zinc-400"></i>
+          </button>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="project-item linear-card rounded-2xl p-6 flex flex-col justify-between" data-category="science">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-mono text-emerald-400 font-medium">Project 02 / Physics</span>
+              <span class="text-xs text-zinc-500 font-mono">2026.02</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">二維拋體與空氣阻力數值模擬</h3>
+            <p class="text-xs text-zinc-400 leading-relaxed mb-4">
+              運用 Python 與歐拉法（Euler method）模擬不同空氣阻力係數下的拋體軌跡，並結合 Tracker 軟體分析實際慢動作錄像數據，探討雷諾數臨界效應。
+            </p>
+            <div class="flex flex-wrap gap-1.5 mb-6">
+              <span class="px-2 py-0.5 rounded bg-white/[0.05] text-[11px] font-mono text-zinc-300">Python</span>
+              <span class="px-2 py-0.5 rounded bg-white/[0.05] text-[11px] font-mono text-zinc-300">NumPy / Matplotlib</span>
+              <span class="px-2 py-0.5 rounded bg-white/[0.05] text-[11px] font-mono text-zinc-300">Kinematics</span>
+            </div>
+          </div>
+          <button class="project-detail-btn w-full py-2 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-xs font-medium text-zinc-200 border border-white/[0.08] flex items-center justify-center gap-1.5 transition-colors" data-id="p2">
+            <span>檢視技術摘要與架構</span>
+            <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-zinc-400"></i>
+          </button>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="project-item linear-card rounded-2xl p-6 flex flex-col justify-between" data-category="english">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-mono text-purple-400 font-medium">Project 03 / English</span>
+              <span class="text-xs text-zinc-500 font-mono">2025.12</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">科技倫理論證寫作與術語庫編纂</h3>
+            <p class="text-xs text-zinc-400 leading-relaxed mb-4">
+              針對人工智慧對就業市場影響進行深入論證寫作，建立中英對照之高頻科技寫作詞庫，獲選校內優良英文專案作品。
+            </p>
+            <div class="flex flex-wrap gap-1.5 mb-6">
+              <span class="px-2 py-0.5 rounded bg-white/[0.05] text-[11px] font-mono text-zinc-300">Academic Writing</span>
+              <span class="px-2 py-0.5 rounded bg-white/[0.05] text-[11px] font-mono text-zinc-300">GEPT Vocab</span>
+              <span class="px-2 py-0.5 rounded bg-white/[0.05] text-[11px] font-mono text-zinc-300">Corpus Analysis</span>
+            </div>
+          </div>
+          <button class="project-detail-btn w-full py-2 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-xs font-medium text-zinc-200 border border-white/[0.08] flex items-center justify-center gap-1.5 transition-colors" data-id="p3">
+            <span>檢視技術摘要與架構</span>
+            <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-zinc-400"></i>
+          </button>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="project-item linear-card rounded-2xl p-6 flex flex-col justify-between" data-category="robotics">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-mono text-blue-400 font-medium">Project 04 / Hardware</span>
+              <span class="text-xs text-zinc-500 font-mono">2025.10</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">桌面級環境監測與氣候數據記錄器</h3>
+            <p class="text-xs text-zinc-400 leading-relaxed mb-4">
+              整合 DHT22 溫濕度感測器與 OLED 顯示面板，透過序列通訊定期上傳環境讀數至本地日誌，實踐物聯網端點資料採集。
+            </p>
+            <div class="flex flex-wrap gap-1.5 mb-6">
+              <span class="px-2 py-0.5 rounded bg-white/[0.05] text-[11px] font-mono text-zinc-300">Sensors</span>
+              <span class="px-2 py-0.5 rounded bg-white/[0.05] text-[11px] font-mono text-zinc-300">Serial I/O</span>
+              <span class="px-2 py-0.5 rounded bg-white/[0.05] text-[11px] font-mono text-zinc-300">Hardware Debug</span>
+            </div>
+          </div>
+          <button class="project-detail-btn w-full py-2 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-xs font-medium text-zinc-200 border border-white/[0.08] flex items-center justify-center gap-1.5 transition-colors" data-id="p4">
+            <span>檢視技術摘要與架構</span>
+            <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-zinc-400"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills & Tech Stack Section -->
+    <section id="skills" class="mb-24">
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <h2 class="text-xs uppercase tracking-widest text-blue-400 font-semibold mb-1">Capabilities</h2>
+          <p class="text-2xl font-bold text-white tracking-tight">技術棧與學科能力維度</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Stack Col 1 -->
+        <div class="linear-card rounded-2xl p-6">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="p-2.5 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400">
+              <i data-lucide="cpu" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h3 class="text-sm font-semibold text-white">機器人與硬體工程</h3>
+              <p class="text-xs text-zinc-500">Hardware & Control Logic</p>
+            </div>
+          </div>
+          <ul class="space-y-3 text-xs text-zinc-400">
+            <li class="flex items-center justify-between">
+              <span>Makeblock 控制系統</span>
+              <span class="font-mono text-zinc-200">Proficient</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>C++ / Arduino IDE</span>
+              <span class="font-mono text-zinc-200">Intermediate</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>PID 閉環調校</span>
+              <span class="font-mono text-zinc-200">Working Knowledge</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>感測器通訊 (I2C/UART)</span>
+              <span class="font-mono text-zinc-200">Intermediate</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Stack Col 2 -->
+        <div class="linear-card rounded-2xl p-6">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="p-2.5 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400">
+              <i data-lucide="book-open" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h3 class="text-sm font-semibold text-white">語言與學術寫作</h3>
+              <p class="text-xs text-zinc-500">English Communication</p>
+            </div>
+          </div>
+          <ul class="space-y-3 text-xs text-zinc-400">
+            <li class="flex items-center justify-between">
+              <span>全民英檢中級寫作</span>
+              <span class="font-mono text-emerald-400">Target Reached</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>學術論文結構組織</span>
+              <span class="font-mono text-zinc-200">Advanced</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>日常即席英語會話</span>
+              <span class="font-mono text-zinc-200">Fluent</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>科技英漢精準轉譯</span>
+              <span class="font-mono text-zinc-200">Proficient</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Stack Col 3 -->
+        <div class="linear-card rounded-2xl p-6">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="p-2.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400">
+              <i data-lucide="terminal" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h3 class="text-sm font-semibold text-white">數理與生產力工具</h3>
+              <p class="text-xs text-zinc-500">Science & Software</p>
+            </div>
+          </div>
+          <ul class="space-y-3 text-xs text-zinc-400">
+            <li class="flex items-center justify-between">
+              <span>高中數理分析與物理力學</span>
+              <span class="font-mono text-zinc-200">Honors Level</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>Python 數據處理</span>
+              <span class="font-mono text-zinc-200">Intermediate</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>Google Workspace 自動化</span>
+              <span class="font-mono text-zinc-200">Advanced</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>Git 版本控制</span>
+              <span class="font-mono text-zinc-200">Fundamental</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Timeline / Milestone Section -->
+    <section id="timeline" class="mb-20">
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <h2 class="text-xs uppercase tracking-widest text-blue-400 font-semibold mb-1">Roadmap</h2>
+          <p class="text-2xl font-bold text-white tracking-tight">關鍵里程碑與學習軌跡</p>
+        </div>
+      </div>
+
+      <div class="relative border-l border-white/[0.08] ml-4 md:ml-6 space-y-8 pl-6 md:pl-8">
+        <!-- Milestone 1 -->
+        <div class="relative group">
+          <div class="absolute -left-[31px] md:-left-[39px] top-1.5 w-3.5 h-3.5 rounded-full bg-blue-500 border-4 border-[#09090b] group-hover:scale-125 transition-transform"></div>
+          <span class="text-xs font-mono text-blue-400">2026.09 — 現階段</span>
+          <h3 class="text-base font-semibold text-white mt-0.5">臺中一中學術課程深化與機器人進階控制演算法研究</h3>
+          <p class="text-xs text-zinc-400 mt-1 max-w-2xl leading-relaxed">
+            系統化修習高階數理與自然科學實驗課程，同步進行輪式機器人自主路徑規劃與避障演算法之模擬與實車測試。
+          </p>
+        </div>
+
+        <!-- Milestone 2 -->
+        <div class="relative group">
+          <div class="absolute -left-[31px] md:-left-[39px] top-1.5 w-3.5 h-3.5 rounded-full bg-indigo-500 border-4 border-[#09090b] group-hover:scale-125 transition-transform"></div>
+          <span class="text-xs font-mono text-indigo-400">2026.03</span>
+          <h3 class="text-base font-semibold text-white mt-0.5">全民英檢中級寫作與翻譯模擬評測完成</h3>
+          <p class="text-xs text-zinc-400 mt-1 max-w-2xl leading-relaxed">
+            建立結構化議論文論證模板，強化轉折語銜接與詞彙多樣性，達到中高級學術論述精準度。
+          </p>
+        </div>
+
+        <!-- Milestone 3 -->
+        <div class="relative group">
+          <div class="absolute -left-[31px] md:-left-[39px] top-1.5 w-3.5 h-3.5 rounded-full bg-zinc-600 border-4 border-[#09090b] group-hover:scale-125 transition-transform"></div>
+          <span class="text-xs font-mono text-zinc-500">2025.07</span>
+          <h3 class="text-base font-semibold text-zinc-300 mt-0.5">個人數位學習與時間管理工作流建置</h3>
+          <p class="text-xs text-zinc-500 mt-1 max-w-2xl leading-relaxed">
+            全面整合雲端排程工具與筆記系統，確立週次循環進度檢視機制，提升自主學習產出效率。
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/[0.06] bg-[#09090b]/80 backdrop-blur-md py-10">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
+      <div class="flex items-center gap-2">
+        <span>© 2026 Brian Chao. All rights reserved.</span>
+        <span>•</span>
+        <span>Designed with Linear Aesthetic</span>
+      </div>
+      <div class="flex items-center gap-6">
+        <a href="#hero" class="hover:text-zinc-300 transition-colors">返回頂部</a>
+        <a href="#projects" class="hover:text-zinc-300 transition-colors">專案列表</a>
+        <a href="#contactModalBtn" id="footerContactBtn" class="hover:text-zinc-300 transition-colors">聯絡資訊</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal Component: Interactive Project Detail -->
+  <div id="detailModal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="linear-card rounded-2xl max-w-xl w-full p-6 relative border border-white/20 shadow-2xl">
+      <button id="closeModalBtn" class="absolute top-5 right-5 text-zinc-400 hover:text-white transition-colors">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+      <div id="modalContent">
+        <!-- Dynamic Content Injected Here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Component: Contact Dialog -->
+  <div id="contactModal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="linear-card rounded-2xl max-w-md w-full p-6 relative border border-white/20 shadow-2xl">
+      <button id="closeContactBtn" class="absolute top-5 right-5 text-zinc-400 hover:text-white transition-colors">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+      <div class="flex items-center gap-3 mb-4">
+        <div class="p-2.5 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400">
+          <i data-lucide="mail" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h3 class="text-base font-bold text-white tracking-tight">與 Brian 聯繫</h3>
+          <p class="text-xs text-zinc-400">學術交流、專案協作或科技探討</p>
+        </div>
+      </div>
+      <div class="space-y-3 mb-6">
+        <div class="p-3 rounded-xl bg-white/[0.03] border border-white/[0.08] flex items-center justify-between">
+          <span class="text-xs text-zinc-400">目前地點</span>
+          <span class="text-xs font-mono text-zinc-200">台中市西屯區 / 臺中一中</span>
+        </div>
+        <div class="p-3 rounded-xl bg-white/[0.03] border border-white/[0.08] flex items-center justify-between">
+          <span class="text-xs text-zinc-400">專業交流範疇</span>
+          <span class="text-xs text-zinc-200">STEM、機器人控制、高中數理</span>
+        </div>
+      </div>
+      <button id="confirmContactBtn" class="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs tracking-tight transition-all shadow-lg shadow-blue-600/25">
+        確認關閉
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Project Details Data
+    const projectDetails = {
+      p1: {
+        title: "多感測自主避障與巡線機器人",
+        category: "STEM & Robotics",
+        date: "2026.04",
+        desc: "利用 Makeblock 套件與外接超音波/紅外線陣列模組，解決微控制器在高速移動時產生的偏擺震盪問題。導入狀態機邏輯切換直行、微調、直角轉彎與障礙繞行狀態，在循線穩定性與反應速率間取得最佳動態平衡。",
+        metrics: [
+          { label: "平均巡線偏擺抑制", value: "32% ↓" },
+          { label: "避障反應延遲", value: "< 15 ms" }
+        ],
+        tags: ["Arduino C++", "State Machine", "Sensor Fusion", "Makeblock"]
+      },
+      p2: {
+        title: "二維拋體與空氣阻力數值模擬",
+        category: "Physics & Computational Modeling",
+        date: "2026.02",
+        desc: "在傳統理想拋體運動中加入空氣阻力 (F = -kv 或 -kv²)，透過 Python 編寫數值解析腳本比對歐拉法與 Runge-Kutta 演算法之收斂誤差。同步藉由高速攝影機拍攝乒乓球運動軌跡，對齊理論與實證模型。",
+        metrics: [
+          { label: "數值積分精度", value: "99.2%" },
+          { label: "實測曲線對齊度", value: "R² = 0.98" }
+        ],
+        tags: ["Python", "NumPy", "Matplotlib", "Kinematics Analysis"]
+      },
+      p3: {
+        title: "科技倫理論證寫作與術語庫編纂",
+        category: "English Writing & Translation",
+        date: "2025.12",
+        desc: "探討生成式 AI 在學術研究與自動化浪潮下的道德界限。全文採用五段式嚴謹論文架構，並建立 150+ 組高階學術英漢對照詞彙卡片，強調語意連貫度 (Cohesion) 與論據實證力。",
+        metrics: [
+          { label: "論文字數", value: "850+ Words" },
+          { label: "全民英檢中級標準", value: "高分達標" }
+        ],
+        tags: ["Academic Essay", "GEPT Intermediate", "Vocabulary Corpus"]
+      },
+      p4: {
+        title: "桌面級環境監測與氣候數據記錄器",
+        category: "Hardware & IoT",
+        date: "2025.10",
+        desc: "為長期追蹤自習環境溫度、濕度與空氣流動品質所打造的微型嵌入式裝置。具備 OLED 即時狀態顯示與警報機制，並藉由序列傳輸將長期數據寫入本地 CSV 資料集以供後續統計分析。",
+        metrics: [
+          { label: "採樣頻率", value: "每 30 秒" },
+          { label: "連續穩定運行", value: "720+ 小時" }
+        ],
+        tags: ["IoT Sensors", "DHT22", "Serial Logging", "Embedded C"]
+      }
+    };
+
+    // Filter Logic
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const projectItems = document.querySelectorAll('.project-item');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => {
+          b.classList.remove('active', 'bg-blue-600', 'text-white');
+          b.classList.add('text-zinc-400');
+        });
+        btn.classList.add('active', 'bg-blue-600', 'text-white');
+        btn.classList.remove('text-zinc-400');
+
+        const filter = btn.getAttribute('data-filter');
+        projectItems.forEach(item => {
+          if (filter === 'all' || item.getAttribute('data-category') === filter) {
+            item.style.display = 'flex';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Project Detail Modal Logic
+    const detailModal = document.getElementById('detailModal');
+    const modalContent = document.getElementById('modalContent');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const detailBtns = document.querySelectorAll('.project-detail-btn');
+
+    detailBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-id');
+        const data = projectDetails[id];
+        if (!data) return;
+
+        modalContent.innerHTML = `
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-mono text-blue-400">${data.category}</span>
+            <span class="text-xs font-mono text-zinc-500">${data.date}</span>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-3 tracking-tight">${data.title}</h3>
+          <p class="text-sm text-zinc-300 leading-relaxed mb-6">${data.desc}</p>
+          <div class="grid grid-cols-2 gap-3 mb-6 p-4 rounded-xl bg-white/[0.02] border border-white/[0.06]">
+            ${data.metrics.map(m => `
+              <div>
+                <div class="text-xs text-zinc-500 mb-0.5">${m.label}</div>
+                <div class="text-base font-semibold text-zinc-200 font-mono">${m.value}</div>
+              </div>
+            `).join('')}
+          </div>
+          <div class="flex flex-wrap gap-1.5">
+            ${data.tags.map(t => `<span class="px-2.5 py-1 rounded-md bg-white/[0.05] text-xs font-mono text-zinc-300">${t}</span>`).join('')}
+          </div>
+        `;
+        detailModal.classList.remove('hidden');
+      });
+    });
+
+    closeModalBtn.addEventListener('click', () => {
+      detailModal.classList.add('hidden');
+    });
+
+    detailModal.addEventListener('click', (e) => {
+      if (e.target === detailModal) detailModal.classList.add('hidden');
+    });
+
+    // Contact Modal Logic
+    const contactModal = document.getElementById('contactModal');
+    const contactModalBtn = document.getElementById('contactModalBtn');
+    const footerContactBtn = document.getElementById('footerContactBtn');
+    const closeContactBtn = document.getElementById('closeContactBtn');
+    const confirmContactBtn = document.getElementById('confirmContactBtn');
+
+    const openContact = (e) => {
+      e.preventDefault();
+      contactModal.classList.remove('hidden');
+    };
+
+    contactModalBtn.addEventListener('click', openContact);
+    footerContactBtn.addEventListener('click', openContact);
+
+    closeContactBtn.addEventListener('click', () => contactModal.classList.add('hidden'));
+    confirmContactBtn.addEventListener('click', () => contactModal.classList.add('hidden'));
+    contactModal.addEventListener('click', (e) => {
+      if (e.target === contactModal) contactModal.classList.add('hidden');
+    });
+
+    // Keyboard accessibility for modals
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        detailModal.classList.add('hidden');
+        contactModal.classList.add('hidden');
+      }
+    });
+  </script>
+</body>
+</html>
